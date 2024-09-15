@@ -1,17 +1,6 @@
-import random
+import csv
 
-
-def generate_floats(total, count):
-    # Generate random float points
-    points = sorted([random.uniform(0, total) for _ in range(count - 1)])
-
-    # Compute the gaps between the points and total
-    values = [points[0]] + [points[i + 1] - points[i] for i in range(count - 2)] + [total - points[-1]]
-
-    return values
-
-
-# Generate 4 random floats that sum up to 20
-random_floats = generate_floats(20, 4)
-print(random_floats)
-print("Sum:", sum(random_floats))
+with open('data.csv', 'a') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow([0.0, 24.0, 24.0, 0.013, 24.0, 0.0032, 0])
+    csvfile.close()
