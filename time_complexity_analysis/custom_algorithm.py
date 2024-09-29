@@ -1,10 +1,5 @@
 # custom method which is intended to estimate ONLY the main frequency of the input data
-# def estimate_dominant_frequency(x):
-#     crosses = 0
-#     for i in range(int((len(x)/2))):
-#         if x[i] * x[i + 1] < 0:  # numbers switch positive to negative or negative to positive
-#             crosses += 1
-#     return crosses
+
 
 import numpy as np
 def estimate_dominant_frequency(x):
