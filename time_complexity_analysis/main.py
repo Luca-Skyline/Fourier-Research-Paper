@@ -17,8 +17,8 @@ import fast_fourier_transform   # contains my FFT algorithm, based on Cooley-Tuk
 
 # Independent Variable (Total Harmonic Distortion) Testing Range
 SNR_min = 0             # Begin with testing pure waves
-SNR_max = 0.05           # Increase distortion until it's this fraction of the magnitude of the dominant frequency
-SNR_step = 0.001         # Increase SNR in steps of 0.01
+SNR_max = 0.2           # Increase distortion until it's this fraction of the magnitude of the dominant frequency
+SNR_step = 0.005         # Increase SNR in steps of 0.01
 
 # Other parameters
 dominant_min = 1.0     # Min and max of the algorithms' "target" value: the frequency with the largest magnitude
@@ -29,7 +29,7 @@ sampling_rate = 512     # Samples per second
 duration = 1            # Seconds of sample generated
 
 # CSV Storage
-filename = 'data.csv'   # Fields:   'SNR', 'Dominant Frequency', 'FFT Estimation', 'Custom Estimation',
+filename = 'data2.csv'   # Fields:   'SNR', 'Dominant Frequency', 'FFT Estimation', 'Custom Estimation',
                         #           'FFT Time', 'Custom Time', 'Frequency Count'
                         
 # for generating magnitudes of multiple waves (with different frequencies) to add up to a total magnitude
@@ -96,7 +96,7 @@ while SNR <= SNR_max:
         my_row.append(frequency_count)
 
         # -- APPEND DATA --
-        with open('data.csv', 'a') as csvfile:
+        with open(filename, 'a') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(my_row)
             csvfile.close()

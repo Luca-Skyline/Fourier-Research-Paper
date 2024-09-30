@@ -74,7 +74,7 @@ model.fit(custom_x, custom_times)
 y_pred = model.predict(custom_x)
 custom_r2 = r2_score(custom_times, y_pred)
 
-custom_
+
 
 #plt.plot(np.unique(sampling_rates), np.poly1d(np.polyfit(sampling_rates, custom_times, 1))(np.unique(sampling_rates)), label='Linear Regression')
 plt.plot(sampling_rates, y_pred, label=f'Linear Regression: R^2={r2}')
