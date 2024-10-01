@@ -38,11 +38,11 @@ for i in range(40):
 
 #plt.plot(noise, fft_variance, 'o', label='FFT Variance', color='red')
 #plt.plot(noise, custom_variance, 'o', label='SFI Variance', color='blue')
-plt.plot([i/200 for i in range(40)], fft_variance_average, label='Average FFT Variance', color='orange', linewidth=3.0)
-plt.plot([i/200 for i in range(40)], custom_variance_average, label='Average SFI Variance', color='green', linewidth=3.0)
-plt.title('Noise vs. Accuracy for FFT and SFI')
+plt.plot([i/200 for i in range(40)], fft_variance_average, label='Average FFT Deviation', color='orange', linewidth=3.0)
+plt.plot([i/200 for i in range(40)], custom_variance_average, label='Average SFI Deviation', color='green', linewidth=3.0)
+plt.title('Noise vs. Accuracy for FFT and SFI - Relative')
 plt.xlabel('Noise Amplitude')
-plt.ylabel('Absolute Deviation')
+plt.ylabel('Magnitude of Relative Error')
 plt.legend()
 #plt.xscale('log')
 
