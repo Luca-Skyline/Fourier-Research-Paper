@@ -80,13 +80,35 @@ model1.fit(fft_x, fft_times)
 y_pred_1 = model1.predict(fft_x)
 fft_r2 = r2_score(fft_times, y_pred_1)
 
-#plt.plot(np.unique(sampling_rates), np.poly1d(np.polyfit(sampling_rates, custom_times, 1))(np.unique(sampling_rates)), label='Linear Regression')
-plt.plot(sampling_rates, y_pred_0, label=f'SFI Linear Regression: R^2={custom_r2}')
+plt.figure(figsize=(8.5, 11))
+
 plt.plot(sampling_rates, y_pred_1, label=f'FFT Linear Regression: R^2={fft_r2}')
-plt.plot(sampling_rates, y_fit, label=f'NlogN Regression: R^2={r_squared}')
-plt.plot(sampling_rates, custom_times, 'o', label='Custom Algorithm')
-plt.plot(sampling_rates, fft_times, 'o', label='FFT Algorithm')
+plt.plot(sampling_rates, y_fit, label=f'FFT NlogN Regression: R^2={r_squared}')
+plt.plot(sampling_rates, fft_times, 'o', label='FFT Algorithm Times')
+
+plt.title('Two Regressions for Sample Size vs. FFT Speed')
+plt.xlabel('Sample Size "N"')
+plt.ylabel('Computation Time (seconds)')
 
 plt.legend()
 plt.xscale("log")
-plt.show()
+plt.grid()
+
+plt.savefig('images/TwoRegressions.png', dpi=300)
+
+plt.clf()
+
+plt.plot(sampling_rates, y_pred_0, label=f'SFI Linear Regression: R^2={custom_r2}')
+plt.plot(sampling_rates, y_fit, label=f'FFT NlogN Regression: R^2={r_squared}')
+plt.plot(sampling_rates, custom_times, 'o', label='SFI Algorithm Times')
+plt.plot(sampling_rates, fft_times, 'o', label='FFT Algorithm Times')
+
+plt.title('Sample Size vs. Speed for FFT and SFI')
+plt.xlabel('Sample Size "N"')
+plt.ylabel('Computation Time (seconds)')
+
+plt.legend()
+plt.xscale("log")
+plt.grid()
+
+plt.savefig('images/BothSpeeds.png', dpi=300)

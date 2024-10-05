@@ -110,26 +110,22 @@ while SNR <= SNR_max:
 
 # GENERATE PLOTS
 
-# Noise Amplitude --> Relative Error
+
 noise, dom, ffts, ffttimes, customs, customtimes = [], [], [], [], [], []
 
 with open(filename, 'r') as csvfile:
     file = csv.reader(csvfile)
 
     for line in file:
-        noise.append(line[0])
-        dom.append(line[1])
-        ffts.append(line[2])
-        ffttimes.append(line[3])
-        customs.append(line[4])
-        customtimes.append(line[5])
+        noise.append(float(line[0]) * 100)
+        dom.append(float(line[1]))
+        ffts.append(float(line[2]))
+        ffttimes.append(float(line[3]))
+        customs.append(float(line[4]))
+        customtimes.append(float(line[5]))
     csvfile.close()
 
-for my_list in noise, dom, ffts, ffttimes, customs, customtimes:
-    my_list.pop(0) # name of column
-
-
-noise = [(float(value)) for value in noise]
+# Noise Amplitude --> Relative Error
 
 fft_variance = [abs((float(ffts[i]) - float(dom[i]))/float(ffts[i])) for i in range(len(ffts))]             # relative
 custom_variance = [abs((float(customs[i]) - float(dom[i]))/float(ffts[i])) for i in range(len(customs))]    # relative
@@ -140,7 +136,6 @@ custom_variance_average = []
 for i in range(int((SNR_max - SNR_min)/SNR_step)):
     fft_variance_average.append(sum(fft_variance[i*trials:(i*trials)+trials])/trials)
     custom_variance_average.append(sum(custom_variance[i*trials:(i*trials)+trials])/trials)
-
 
 
 plt.plot(noise, fft_variance, 'o', label='FFT Error', color='red')
@@ -157,8 +152,8 @@ input('Next Image')
 
 plt.clf()
 
-plt.plot([i*SNR_step for i in range(int((SNR_max - SNR_min)/SNR_step))], fft_variance_average, label='Average FFT Error', color='red', linewidth=3.0)
-plt.plot([i*SNR_step for i in range(int((SNR_max - SNR_min)/SNR_step))], custom_variance_average, label='Average SFI Error', color='blue', linewidth=3.0)
+plt.plot([i*SNR_step*100 for i in range(int((SNR_max - SNR_min)/SNR_step))], fft_variance_average, label='Average FFT Error', color='red', linewidth=3.0)
+plt.plot([i*SNR_step*100 for i in range(int((SNR_max - SNR_min)/SNR_step))], custom_variance_average, label='Average SFI Error', color='blue', linewidth=3.0)
 plt.title('Noise vs. Average Error for FFT and SFI - Relative')
 plt.xlabel('% Noise Amplitude')
 plt.ylabel('Magnitude of Relative Error')
@@ -196,11 +191,22 @@ input('Next Image')
 
 plt.clf()
 
-plt.plot([i*SNR_step for i in range(int((SNR_max - SNR_min)/SNR_step))], fft_variance_average, label='Average FFT Error', color='red', linewidth=3.0)
-plt.plot([i*SNR_step for i in range(int((SNR_max - SNR_min)/SNR_step))], custom_variance_average, label='Average SFI Error', color='blue', linewidth=3.0)
+plt.plot([i*SNR_step*100 for i in range(int((SNR_max - SNR_min)/SNR_step))], fft_variance_average, label='Average FFT Error', color='red', linewidth=3.0)
+plt.plot([i*SNR_step*100 for i in range(int((SNR_max - SNR_min)/SNR_step))], custom_variance_average, label='Average SFI Error', color='blue', linewidth=3.0)
 plt.title('Noise vs. Average Error for FFT and SFI - Absolute')
 plt.xlabel('% Noise Amplitude')
 plt.ylabel('Magnitude of Absolute Error (Hz)')
 plt.legend()
 
 plt.show()
+
+input('Next Image')
+
+plt.clf()
+
+plt.plot(noise, ffttimes, 'o', label='FFT Times', color='red')
+plt.plot(noise, customtimes, 'o', label='SFI Error', color='blue')
+plt.title('Noise vs. Calculation Time for FFT and SFI')
+plt.xlabel('% Noise Amplitude')
+plt.ylabel('Calculation Time (seconds)')
+plt.legend()
